@@ -65,6 +65,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Note2.cpp" />
     <ClCompile Include="Notes1.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>

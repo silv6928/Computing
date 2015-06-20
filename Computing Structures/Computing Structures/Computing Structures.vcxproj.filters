@@ -21,5 +21,8 @@
     <ClCompile Include="Notes1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Note2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

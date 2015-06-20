@@ -1,5 +1,5 @@
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//using namespace std;
 
 /*
 // pass by copy functions with myVal and val
@@ -172,7 +172,7 @@ void printInstance();
 
 		return 0;
 	}*/
-
+/*
 class Point{
 protected:
 	double _x;
@@ -215,7 +215,7 @@ int main(){
 
 
 	return 0;
-}
+}*/
 // Pointers
 /*int main()
 {
