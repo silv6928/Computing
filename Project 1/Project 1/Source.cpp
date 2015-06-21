@@ -4,6 +4,7 @@
 * Project 1
 */
 #include <iostream>
+#include <ctype.h>
 using namespace std;
 
 // Date Token Class
@@ -21,11 +22,7 @@ class YearToken{
 class WebAddressToken{
 
 };
-// Twitter Address Token
-//---------------------------------------------------------------
-class TwitterAddressToken{
 
-};
 //Token Container class
 //---------------------------------------------------------------
 class TokenContainer{
@@ -46,30 +43,9 @@ void TokenContainer::setNumTokens(int x){
 int TokenContainer::getNumTokens(){
 	return numTokens;
 }
-TokenContainer::TokenContainer(){
+TokenContainer::~TokenContainer(){
 
 }
-//HashTag Token Container Sub Class
-//---------------------------------------------------------------
-class HashTagTokenContainer : public TokenContainer{
-private:
-	HashTagToken* tokenList[200];
-public:
-	HashTagTokenContainer();
-	void printTokens();
-	void addToken(HashTagToken*);
-	virtual ~HashTagTokenContainer();
-};
-HashTagTokenContainer::HashTagTokenContainer(){
-
-}
-void HashTagTokenContainer::addToken(HashTagToken* hashtag){
-
-}
-void HashTagTokenContainer::printTokens(){
-
-}
-
 //Word Token Class
 //---------------------------------------------------------------
 class WordToken{
@@ -111,7 +87,7 @@ private:
 };
 // HashTag default constructor
 HashTagToken::HashTagToken() {
-	cout << "Test Token was created" << endl;
+
 }
 //HashTag Set Token class
 void HashTagToken::setToken(char* x){
@@ -125,47 +101,90 @@ char* HashTagToken::getToken(){
 	return HashTagChar;
 }
 HashTagToken::~HashTagToken(){
-	cout << "Token destroyed" << endl;
+	
 }
+// Twitter Address Token
+//---------------------------------------------------------------
+class TwitterAddressToken{
+private:
+	char* TwitterAddressChar;
+public:
+	TwitterAddressToken();
+	void printToken();
+	char* getToken();
+	void setToken(char* x);
+	virtual ~TwitterAddressToken();
+};
+TwitterAddressToken::TwitterAddressToken(){
 
+}
+void TwitterAddressToken::printToken(){
+	cout << "<" << TwitterAddressChar << "> ";
+}
+char* TwitterAddressToken::getToken(){
+
+	return TwitterAddressChar;
+}
+void TwitterAddressToken::setToken(char* x){
+	TwitterAddressChar = x;
+}
+TwitterAddressToken::~TwitterAddressToken(){
+
+}
+void emptyString(char* s, int length)
+{
+	for (int i = 0; i < length; i++)
+		s[i] = '\0';
+}
 //------------------------------------------------------------
 int main(){
 	
 	
 	// scanning document
 	char c;
-	int count = 1;
-	int i = 0;
+	int i;
+	char pass[142];
 	 // this is to pass what is scanned into the setToken methods // I need to put this as a pointer...
 	
 
 	cin.get(c);
 	while (!cin.eof()){
-		if (c == '#') {
+		i = 0;
+		emptyString(pass, 142);
+		if (c == '@'){
+			TwitterAddressToken* TwitterAddObj = NULL;
+			TwitterAddObj = new TwitterAddressToken();
+			while ((c != ' ')&&(c != '\'')&&(c != '.')&&(c != '!') && (c != ':')&&(c!= '\n')&&(c!=',')){
+				pass[i] = c;
+				cin.get(c);
+				i++;
+			}
+			(*TwitterAddObj).setToken(pass);
+			(*TwitterAddObj).printToken();
+			delete TwitterAddObj;
+		}
+		else if (c == '#') {
 			HashTagToken* hashTagobj = NULL;
 			hashTagobj = new HashTagToken();
-			char pass[141];
-			while (c != ' ')
+			
+			while ((c != ' ') && (c != '\'') && (c != '.') && (c != '!') && (c != ':') && (c != '\n') && (c != ','))
 			{
 				pass[i] = c;   //generating character array to set the Token
 				i++;
 				cin.get(c);
 			}
-			
-			pass[i] = '\0';
-			i = 0;
 			(*hashTagobj).setToken(pass);
 			(*hashTagobj).printToken();
 			delete hashTagobj;
 		} 
-		else 
-		{
-						
-			//cout << c;
-					
+		else if (c == '\n'){
+			cout << c;
 		}
 		
 		cin.get(c);
-	}
+		
+		}
+		
 	return 0;
-}
+	}
+	
