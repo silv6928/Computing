@@ -8,12 +8,6 @@
 #include <ctype.h>
 using namespace std;
 
-// Date Token Class
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-class DateToken{
-
-};
 //Token Container class
 //---------------------------------------------------------------
 //---------------------------------------------------------------
@@ -36,6 +30,34 @@ int TokenContainer::getNumTokens(){
 	return numTokens;
 }
 TokenContainer::~TokenContainer(){
+
+}
+// Date Token Class
+//---------------------------------------------------------------
+//---------------------------------------------------------------
+class DateToken{
+private:
+	char* DateTokenChar;
+public:
+	DateToken();
+	void printToken();
+	char* getToken();
+	void setToken(char*x);
+	virtual ~DateToken();
+};
+DateToken::DateToken(){
+
+}
+void DateToken::setToken(char* x){
+	DateTokenChar = x;
+}
+char* DateToken::getToken(){
+	return DateTokenChar;
+}
+void DateToken::printToken(){
+	cout << "<" << DateTokenChar << ">";
+}
+DateToken::~DateToken(){
 
 }
 //Word Token Class
@@ -247,7 +269,7 @@ int main(){
 			WordToken* WordTokenObj = NULL;
 			WebAddressToken* WebAddObj = NULL;
 			WordTokenObj = new WordToken();
-			while ((c != ' ') && (c != '\'') && (c != ':')&&(c!='"') && (c!='.')&&(c != '!') && (c != '\n') && (c != ',')&&(c!='@')&&(c!='-')){
+			while ((c != ' ') && (c != ':')&&(c!='"') && (c!='.')&&(c != '!') && (c != '\n') && (c != ',')&&(c!='@')&&(c!='-')){
 
 				pass[i] = c;
 				i++;
@@ -278,8 +300,32 @@ int main(){
 			
 		}
 		else if (isdigit(unsigned char(c))){
-
-
+			YearToken* YearTokenObj = NULL;
+			DateToken* DateTokenObj = NULL;
+			while (isdigit(unsigned char(c))|| c== '/'){
+				pass[i] = c;
+				i++;
+				cin.get(c);
+			}
+			if (isdigit(pass[0]) && isdigit(pass[1]) && isdigit(pass[2]) && isdigit(pass[3])){
+				YearTokenObj = new YearToken();
+				(*YearTokenObj).setToken(pass);
+				(*YearTokenObj).printToken();
+				cout << c;
+				delete YearTokenObj;
+			}
+			else if (isdigit(pass[0]) && isdigit(pass[1]) && pass[2] == '/')
+			{
+				DateTokenObj = new DateToken();
+				(*DateTokenObj).setToken(pass);
+				(*DateTokenObj).printToken();
+				cout << c;
+				delete DateTokenObj;
+			}
+			else{
+				cout << pass;
+				cout << c;
+			}
 		}
 		else{
 			cout << c;
